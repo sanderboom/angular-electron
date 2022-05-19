@@ -56,15 +56,27 @@ jobs:
     - name: Check lint
       run: npm run lint
 
-    - name: Run headless unit test
-      uses: GabrielBB/xvfb-action@v1
-      with:
-        run: npm run test
+    #- name: Run headless unit test
+    #  uses: GabrielBB/xvfb-action@v1
+    #  with:
+    #    run: npm run test
 
-    - name: Run headless e2e test
-      uses: GabrielBB/xvfb-action@v1
-      with:
-        run: npm run e2e
+    #- name: Run headless e2e test
+    #  uses: GabrielBB/xvfb-action@v1
+    #  with:
+    #    run: npm run e2e
 
     - name: Build the app
       run: npm run electron:build
+
+    - name: Upload the build artifact
+      uses: actions/upload-artifact@v3
+      with:
+        # Artifact name
+        name: linux # optional, default is artifact
+        # A file, directory or wildcard pattern that describes what to upload
+        path: ./release
+        # The desired behavior if no files are found using the provided path.
+        error: Fail the action with an error message
+        if-no-files-found: error
+        retention-days: 0
